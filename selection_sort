@@ -1,0 +1,41 @@
+/* 선택정렬 : 최솟값을 찾아 위치를 교환하는 정렬
+아래 코드는 오름차순 정렬.
+각 인덱스 위치에서 발생한 교환 횟수를 answer[]에 저장.
+오름차순 후 결과는 p[]
+정렬에서는 문제가 없으나 교환 횟수가 생각과 다르게 출력됨
+ex)) 2, 5, 3, 1, 4 -----> 1, 2, 3, 4, 5
+이때 교환횟수의 기대값은 1 0 1 1 3
+실제 출력값 1 0 1 1 0
+i가 lengh-1까지라 마지막 p[4]인덱스에서는 교환이 이루어지지 않음.*/
+
+
+import java.util.*;
+
+class Main {
+	public static void main(String args[]){
+    	int p[] = {2,5,3,1,4};
+        int len = p.length;
+       
+        int tmp = 0;
+        int target=0;
+        int[] answer = new int[len];
+        
+        for(int i = 0;i<len-1;i++) {
+        	int cnt = 0;
+        	target = i;
+        	for(int j = i+1;j<len;j++) {
+        		if(p[j]<p[target])
+        			target = j;
+        	}
+        	if(i != target)
+        		cnt++;
+        		tmp = p[i];
+        		p[i] = p[target];
+        		p[target] = tmp;
+        		answer[i] = cnt;    //교환횟수, 아직 오류 발생
+        }
+       
+        for(int i = 0; i < len; i++)
+        	System.out.println(p[i] + " 교환 횟수 : " + answer[i]);
+    }
+}
