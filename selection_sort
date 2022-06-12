@@ -1,41 +1,46 @@
-/* 선택정렬 : 최솟값을 찾아 위치를 교환하는 정렬
+/*
+선택정렬 : 최솟값을 찾아 위치를 교환하는 정렬
 아래 코드는 오름차순 정렬.
-각 인덱스 위치에서 발생한 교환 횟수를 answer[]에 저장.
-오름차순 후 결과는 p[]
-정렬에서는 문제가 없으나 교환 횟수가 생각과 다르게 출력됨
-ex)) 2, 5, 3, 1, 4 -----> 1, 2, 3, 4, 5
-이때 교환횟수의 기대값은 1 0 1 1 3
-실제 출력값 1 0 1 1 0
-i가 lengh-1까지라 마지막 p[4]인덱스에서는 교환이 이루어지지 않음.*/
+
+출력할 값은 정렬 후 배열, 각 인덱스에서의 교환 발생 횟수
+*/
 
 
 import java.util.*;
 
 class Main {
 	public static void main(String args[]){
-    	int p[] = {2,5,3,1,4};
-        int len = p.length;
-       
-        int tmp = 0;
-        int target=0;
-        int[] answer = new int[len];
+    	int in[] = {2,5,3,1,4};  //입력된 배열
+    	int len = in.length;
+    	int[] after = new int[in.length];    //스왑 후 배열
+        for (int i = 0; i < in.length; i++) {   //주소값 연결하지 않고 복사
+        	after[i] = in[i];
+        }
+        //int after[] = in; ---> 주소를 이어준다. 즉 하나 바뀌면 같이 바뀜. 다른 방법으로 복사!!
+        int prev[] = new int[len];      //스왑 전 배열
+        int cnt[] = new int[len];   //스왑 전후 비교해서 교환횟수 카운트 후 저장할 배열
         
         for(int i = 0;i<len-1;i++) {
-        	int cnt = 0;
-        	target = i;
+        	int target = i;
         	for(int j = i+1;j<len;j++) {
-        		if(p[j]<p[target])
-        			target = j;
+        		if(after[j]<after[target])   //최솟값 찾는 중
+        			target = j;    //최솟값이 있는 배열 인덱스 저장
         	}
-        	if(i != target)
-        		cnt++;
-        		tmp = p[i];
-        		p[i] = p[target];
-        		p[target] = tmp;
-        		answer[i] = cnt;    //교환횟수, 아직 오류 발생
+        	for(int k = 0;k<len;k++) {   //스왑 전 배열에 스왑 후 배열을 저장!!!
+        		prev[k] = after[k];     //앞전의 스왑후 상태와 방금 스왑 한 상태를 비교해서 cnt 계산할 것
+        	}
+        	if(i != target) {   //스왑
+        		int tmp = after[i];
+        		after[i] = after[target];
+        		after[target] = tmp;
+        	}
+        	for(int m = 0;m<len;m++) {
+        		if(prev[m] != after[m])
+        			cnt[m]++;   //cnt배열은 각 인덱스마다 계산해야해서 배열 처리
+        	}
         }
-       
+        
         for(int i = 0; i < len; i++)
-        	System.out.println(p[i] + " 교환 횟수 : " + answer[i]);
+        	System.out.println(after[i] + " 교환 횟수 : " + cnt[i]);
     }
 }
