@@ -1,0 +1,20 @@
+/* 문제 ((네이버
+1x1 사이즈 정사각형 M개
+2x2 사이즈 정사각형 N개
+이때 타일을 이용하여 만들 수 있는 가장 큰 정사각형을 구하라
+M = 8, N = 0 ---> 2 --> 2x2 사이즈 정사각형
+M = 4, N = 3 ---> 4 --> 4x4 사이즈 정사각형
+*/
+
+import java.util.*;
+
+class Solution {
+    public int solution(int M, int N) {
+        int fake_M = 0;     //fake_M은 가짜 1x1 정사각형 타일이다.
+        fake_M = N*4;     // 2x2 사이즈 정사각형 1개는 1x1 사이즈 정사각형 4개로 대체 가능하다
+        int total_M = M + fake_M;
+        
+        int cnt = (int)Math.sqrt(total_M);  //루트. 넓이에 루트 씌우면 한 변의 길이. 소숫점 필요X ---> int로 형변환
+        return cnt;
+    }
+}
