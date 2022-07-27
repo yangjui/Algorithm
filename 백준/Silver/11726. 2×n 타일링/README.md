@@ -10,3 +10,7 @@
 
 다이나믹 프로그래밍(dp)
 
+
+### 알고리즘
+![image](https://user-images.githubusercontent.com/71171290/181202519-c94f7513-05ad-4d5c-8d7f-3ebc6d857650.png)
+f(3) = f(1) + f(2)
